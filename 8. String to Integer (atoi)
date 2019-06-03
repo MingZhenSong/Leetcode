@@ -1,0 +1,17 @@
+int myAtoi(char* str) {
+    int i = 0;
+    int sign = 1;
+    long long sum = 0;
+    
+    while(str[i] == ' ')
+        i++;
+    if(str[i] == '-' || str[i] == '+')
+        sign = 1 - 2 * (str[i++] == '-');
+    while(str[i] >= '0' && str[i] <= '9')
+    {
+        sum = 10 * sum + (str[i++] - '0');
+        if(sum > INT_MAX)
+            return sign == 1 ? INT_MAX : INT_MIN;
+    }
+    return (int)sign * sum;
+}
