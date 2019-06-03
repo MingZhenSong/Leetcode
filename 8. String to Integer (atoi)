@@ -1,16 +1,22 @@
+思路：
+1.忽略空格
+2.判断正负号
+3.有效的字符数字转换成整型数字
+4.溢出判断
+
 int myAtoi(char* str) {
     int i = 0;
     int sign = 1;
-    long long sum = 0;
+    long long sum = 0;  //占64bit
     
-    while(str[i] == ' ')
+    while(str[i] == ' ')    //跳过空格
         i++;
     if(str[i] == '-' || str[i] == '+')
-        sign = 1 - 2 * (str[i++] == '-');
+        sign = 1 - 2 * (str[i++] == '-');   //判断正负号
     while(str[i] >= '0' && str[i] <= '9')
     {
-        sum = 10 * sum + (str[i++] - '0');
-        if(sum > INT_MAX)
+        sum = 10 * sum + (str[i++] - '0');  //遇到字符数字，则转换成整型数字
+        if(sum > INT_MAX)   //溢出判断，INT_MAX=-2,147,483,648，INT_MIN=2,147,483,647
             return sign == 1 ? INT_MAX : INT_MIN;
     }
     return (int)sign * sum;
