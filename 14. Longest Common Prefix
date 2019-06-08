@@ -1,3 +1,17 @@
+思路：采用 divide and conquer 分治法
+分治的具体步骤：
+step1 分解：将原问题分解为若干个规模较小，相互独立，与原问题形式相同的子问题；
+step2 解决：若子问题规模较小而容易被解决则直接解，否则递归地解各个子问题
+step3 合并：将各个子问题的解合并为原问题的解。
+例如：
+/***
+    leetcode    leet    lee    leetco
+     \           /       \        /
+	leet                 lee
+	  \                   /
+		   lee
+***/
+
 char* commonPrefix(char** strs, int start, int end);
 char* comparePrefix(char* a, char* b);
 
@@ -15,9 +29,9 @@ char* commonPrefix(char** strs, int start, int end) {
         return strs[start];
     else {
         int mid = (start + end) / 2;
-        char* leftLCP = commonPrefix(strs, start, mid);
+        char* leftLCP = commonPrefix(strs, start, mid); //递归求解
         char* rightLCP = commonPrefix(strs, mid+1, end);
-        return comparePrefix(leftLCP, rightLCP);
+        return comparePrefix(leftLCP, rightLCP); //比较相同部分
     }   
 }
 
@@ -26,7 +40,7 @@ char* comparePrefix(char* a, char* b) {    //Compare string a, b then return the
         return "";
     else {
         int minLength = (strlen(a) < strlen(b)) ? strlen(a) : strlen(b);
-        char* LCP = malloc((minLength+1)*sizeof(char));
+        char* LCP = malloc((minLength+1)*sizeof(char)); //注意这里为(minLength+1)，否则数组会越界
         
         int i;
         for (i  = 0; i < minLength; i++) {
