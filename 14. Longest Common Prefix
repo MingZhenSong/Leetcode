@@ -1,0 +1,43 @@
+char* commonPrefix(char** strs, int start, int end);
+char* comparePrefix(char* a, char* b);
+
+char* longestCommonPrefix(char** strs, int strsSize) {
+    if (strsSize == 0) 
+        return "";
+    else if (strsSize == 1)
+        return strs[0];
+    else
+        return commonPrefix(strs, 0, strsSize-1);
+}
+
+char* commonPrefix(char** strs, int start, int end) {
+    if (start == end)
+        return strs[start];
+    else {
+        int mid = (start + end) / 2;
+        char* leftLCP = commonPrefix(strs, start, mid);
+        char* rightLCP = commonPrefix(strs, mid+1, end);
+        return comparePrefix(leftLCP, rightLCP);
+    }   
+}
+
+char* comparePrefix(char* a, char* b) {    //Compare string a, b then return the prefix
+    if (a[0] == '\0' || b[0] == '\0')
+        return "";
+    else {
+        int minLength = (strlen(a) < strlen(b)) ? strlen(a) : strlen(b);
+        char* LCP = malloc((minLength+1)*sizeof(char));
+        
+        int i;
+        for (i  = 0; i < minLength; i++) {
+            if (a[i] == b[i])
+                LCP[i] = a[i];
+            else
+                break;
+        }
+
+        LCP[i] = '\0';
+
+        return LCP; 
+    }       
+}
